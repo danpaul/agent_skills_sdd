@@ -66,13 +66,13 @@ Install the skills with the Skills CLI.
 In one project:
 
 ```bash
-npx skills add danpaul/agent_skills
+npx skills add danpaul/agent_skills_sdd
 ```
 
 For every project:
 
 ```bash
-npx skills add danpaul/agent_skills -g
+npx skills add danpaul/agent_skills_sdd -g
 ```
 
 In that project’s agent chat, name the skill or @-mention it. For a new feature, start with **spec-init**. For an existing spec, point **spec-grill-me**, **spec-review**, and **spec-plan** at `specs/<NNN>-<slug>/spec.md`. Point **spec-execute** at that folder’s `task.md`. If the topic or the spec path is unclear, the skill asks before it writes anything.
