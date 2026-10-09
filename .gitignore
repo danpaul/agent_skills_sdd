@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Logs and local tooling
+*.log
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
