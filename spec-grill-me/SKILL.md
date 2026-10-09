@@ -39,21 +39,23 @@ After each round of answers:
 2. Summarize what you added or tightened (a few bullets).
 3. Start another round if remaining gaps would still force guessing.
 
-Stop when **Requirements** and **Out of scope** are specific enough to implement without guessing, or when the user says stop.
+Stop when **Goal**, **Requirements**, **Behaviour**, and **Acceptance criteria** are specific enough to implement without guessing and **Open questions** is omitted, or when the user says stop. When you stop because the spec is ready, tell the user the next step is **spec-review**.
 
 ## Writing the spec
 
-Keep the draft's existing headings and fill them in. Expected sections:
+Keep the spec-init headings and fill them in. Do not add or rename headings.
 
-- **Context** — current state and constraints (facts, not wishes)
-- **Goals** — what this spec delivers
-- **Requirements** — detailed, implementable rules (use subsections)
-- **Out of scope** — explicit exclusions
+- **Goal** — what problem this solves, and for whom
+- **Requirements** — numbered **R1**, **R2**, … as "The system shall …". Replace every placeholder bullet.
+- **Behaviour** — important workflows, edge cases, and error handling
+- **Constraints** — technical, security, accessibility, or compatibility constraints. Omit the whole section when there are none.
+- **Acceptance criteria** — numbered **AC1**, **AC2**, … as Given/when/then. Replace every placeholder bullet.
+- **Open questions** — unresolved decisions. Omit the whole section when none remain.
 
-Preserve extra headings the draft already has. Keep the user's title. Fix incomplete sentences and typos while updating.
+Keep the user's title. Fix incomplete sentences and typos while updating.
 
 Fold in matching `AGENTS.md` / codebase conventions. If the spec would contradict them, ask before choosing a side.
 
-Match the specificity of `specs/001-component-structure/spec.md` (files, APIs, behaviors, exclusions) — not that file's heading layout.
+Match the specificity of `specs/001-component-structure/spec.md` (files, APIs, behaviour, acceptance criteria) — not that file's heading layout.
 
 Keep the spec concise. Prefer bullets over prose. Do not add rationale, alternatives considered, or implementation steps unless the user asked for them.
