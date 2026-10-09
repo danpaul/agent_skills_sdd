@@ -14,6 +14,8 @@ Review one `spec.md` against ISO/IEC/IEEE 29148 and write `review.md` beside it.
 
 Do not edit `spec.md`, `plan.md`, or `task.md`. Do not implement. Do not invent requirements.
 
+**spec-grill-me** reads this skill, revises `spec.md` until these rules pass, and writes `review.md` with `Result: Pass` only then. This skill stays an independent check. If a later review still finds issues, replace `review.md` and tell the user to resolve them with **spec-grill-me**.
+
 If the spec path is unclear, ask instead of guessing.
 
 ## When invoked

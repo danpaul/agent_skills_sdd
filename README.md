@@ -27,7 +27,7 @@ This repository is spec-first. The specification is written and reviewed before 
 
 [ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html), *Systems and software engineering — Life cycle processes — Requirements engineering* (second edition, 2018-11, confirmed 2024), covers requirements processes and products through the life cycle. It describes well-formed textual requirements, guides the requirements-related processes in ISO/IEC/IEEE 15288 and ISO/IEC/IEEE 12207, and specifies the information items those processes produce and what those items contain.
 
-**spec-review** applies three parts of clause 5:
+**spec-grill-me** applies three parts of clause 5, using the checklist in **spec-review**, and writes `review.md` only when they pass:
 
 - **5.2.5, individual requirements.** Necessary, appropriate, unambiguous, complete, singular, feasible, verifiable, correct, and conforming.
 - **5.2.6, a set of requirements.** Complete, consistent, feasible, comprehensible, and able to be validated.
@@ -37,7 +37,7 @@ This repository is spec-first. The specification is written and reviewed before 
 
 ## Skills
 
-Each skill sets `disable-model-invocation: true`. The agent loads a skill when you say its name or @-mention it. Run them in this order on one feature.
+Each skill sets `disable-model-invocation: true`. The agent loads a skill when you say its name or @-mention it. Run **spec-init**, **spec-grill-me**, **spec-plan**, and **spec-execute** in that order on one feature. **spec-grill-me** includes the **spec-review** check and writes a passing `review.md`, so you do not call **spec-review** as its own step.
 
 ### spec-init
 
@@ -45,11 +45,11 @@ Creates `specs/<NNN>-<slug>/spec.md` from [the template](spec-init/template.md).
 
 ### spec-grill-me
 
-Turns the draft into a specification an implementer can follow. It reads the spec and the project’s conventions, then asks 3–6 questions per round about scope, files, API, UX, constraints, or acceptance. After each round it updates `spec.md` in place. It stops when Goal, Requirements, Behaviour, and Acceptance criteria are specific enough to implement and Open questions is omitted, or when you say stop. Requirements use **R1**, **R2**, … as “The system shall …”. Acceptance criteria use **AC1**, **AC2**, … as Given/when/then. Next step: **spec-review**.
+Turns the draft into a specification an implementer can follow. It reads the spec and the project’s conventions, then asks 3–6 questions per round about scope, files, API, UX, constraints, or acceptance. After each round it updates `spec.md` in place. Requirements use **R1**, **R2**, … as “The system shall …” or “The system should …”. Acceptance criteria use **AC1**, **AC2**, … as `**AC1 (verifies R1):**` Given/when/then. It then applies the **spec-review** rules and fixes anything that does not need a new product decision. It stops when Goal, Requirements, Behaviour, and Acceptance criteria are specific enough to implement, Open questions is omitted, and that review would pass, or when you say stop. On a clean review it writes `review.md` with `Result: Pass`. Next step: **spec-plan**. If you stop early, it does not write a Pass review.
 
 ### spec-review
 
-Reviews `spec.md` against clauses 5.2.5, 5.2.6, and 5.2.7, and against trace: every **R** has at least one **AC**, and every **AC** cites the **R** it verifies. It writes `review.md` beside the spec. `Result` is `Pass` or `Findings open`. Open findings are **F1**, **F2**, …, each naming the requirement (or the set), the failed characteristic, and the fix. A template prompt or an Open questions section still present cannot pass. Resolve findings with **spec-grill-me**, then run **spec-review** again. On pass, next step: **spec-plan**.
+Reviews `spec.md` against the same clauses and trace rules, and writes `review.md` beside the spec. `Result` is `Pass` or `Findings open`. Open findings are **F1**, **F2**, …, each naming the requirement (or the set), the failed characteristic, and the fix. A template prompt or an Open questions section still present cannot pass. You do not call this after **spec-grill-me**; that skill already writes a passing `review.md`. Use **spec-review** when you want an independent check. If findings are open, resolve them with **spec-grill-me**. On pass, next step: **spec-plan**.
 
 ### spec-plan
 
@@ -75,4 +75,4 @@ For every project:
 npx skills add danpaul/agent_skills_sdd -g
 ```
 
-In that project’s agent chat, name the skill or @-mention it. For a new feature, start with **spec-init**. For an existing spec, point **spec-grill-me**, **spec-review**, and **spec-plan** at `specs/<NNN>-<slug>/spec.md`. Point **spec-execute** at that folder’s `task.md`. If the topic or the spec path is unclear, the skill asks before it writes anything.
+In that project’s agent chat, name the skill or @-mention it. For a new feature, start with **spec-init**. For an existing spec, point **spec-grill-me** and **spec-plan** at `specs/<NNN>-<slug>/spec.md`. Point **spec-execute** at that folder’s `task.md`. Point **spec-review** at the same `spec.md` only when you want a separate check. If the topic or the spec path is unclear, the skill asks before it writes anything.
