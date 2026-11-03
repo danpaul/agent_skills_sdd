@@ -2,17 +2,17 @@
 name: spec-grill-me
 description: >-
   Clarifies a spec by asking the user batches of questions, then rewriting
-  the spec so it conforms to the ISO/IEC/IEEE 29148 rules in spec-review,
-  and writing a passing review.md beside it. Use when the user says
-  "grill me", @-mentions this skill, or explicitly asks to grill or clarify a spec.
+  the spec into Goal, Requirements, Acceptance Criteria, and Out of Scope.
+  Does not write a review. Use when the user says "grill me", @-mentions this
+  skill, or explicitly asks to grill or clarify a spec.
 disable-model-invocation: true
 ---
 
 # Spec grill-me
 
-Turn a draft spec into an implementable spec by questioning the user, then updating that spec file in place so it conforms to the ISO/IEC/IEEE 29148 rules in `.agents/skills/spec-review/SKILL.md`.
+Turn a draft spec into an implementable spec by questioning the user, then updating that spec file in place.
 
-Do not implement the spec. Do not create `plan.md` or `task.md`. Do not copy the spec-review checklist into this skill. Read that skill and apply it.
+Do not implement the spec. Do not create `plan.md` or `task.md`. Do not write `review.md`.
 
 If anything is unclear, please ask me instead of guessing.
 
@@ -40,42 +40,23 @@ After each round of answers:
 2. Summarize what you added or tightened (a few bullets).
 3. Start another round if remaining gaps would still force guessing.
 
-## 29148 review
-
-Before calling the spec ready, read `.agents/skills/spec-review/SKILL.md` and check every individual, set, language, and trace rule against the current spec.
-
-- Rewrite anything that can be fixed without a new product decision: one `shall` or `should` per **R**, "The system shall/should …", `**AC1 (verifies R1):**` Given/when/then, move unchangeable interfaces into **Constraints**, drop duplicate obligations, and add an observable **AC** for each **R** already stated.
-- If a finding needs a decision the spec does not already contain (a missing bound, a missing error, an undefined term), ask it in the next 3–6 question round. Do not invent that content.
-- Repeat until a review would be `Pass`, or the user says stop.
-
-When the self-review is clean, save `spec.md`, then write `review.md` in that spec folder. `review.md` must be written after the final `spec.md` save. Use spec-review's Pass shape and omit **Findings**:
-
-```markdown
-# Review
-
-Source: ./spec.md
-Result: Pass
-```
-
-Tell the user the next step is **spec-plan**.
-
-Stop when **Goal**, **Requirements**, **Behaviour**, and **Acceptance criteria** are specific enough to implement without guessing, **Open questions** is omitted, and the self-review would be `Pass`. If the user says stop before that, stop. Do not write a Pass `review.md`. Leave any existing `review.md` unchanged.
+Stop when **Goal**, **Requirements**, and **Acceptance Criteria** are specific enough to implement without guessing, or when the user says stop. A placeholder **Out of Scope** section does not block that. Then tell the user the next step is **spec-plan**.
 
 ## Writing the spec
 
-Keep the spec-init headings and fill them in. Do not add or rename headings.
+Keep only these headings. Do not add or rename them. Drop any other heading, including a title.
 
-- **Goal** — what problem this solves, and for whom
-- **Requirements** — numbered **R1**, **R2**, … Each requirement is one singular "The system shall …" or "The system should …". Replace every placeholder bullet. Do not put file paths, libraries, or internal structure here.
-- **Behaviour** — important workflows, edge cases, and error handling
-- **Constraints** — technical, security, accessibility, or compatibility constraints, including file paths, libraries, and other interfaces the product cannot change. Omit the whole section when there are none.
-- **Acceptance criteria** — numbered **AC1**, **AC2**, … as `**AC1 (verifies R1):**` Given/when/then. Each **AC** cites the **R** it verifies, and each **R** has at least one **AC**. Replace every placeholder bullet.
-- **Open questions** — unresolved decisions. Omit the whole section when none remain.
+- **Goal** — a short statement of what the feature accomplishes. Replace the template prompt.
+- **Requirements** — plain bullets. These may name libraries, files, and other interfaces the product cannot change. Replace every placeholder bullet.
+- **Acceptance Criteria** — plain bullets that state an observable outcome. Replace every placeholder bullet.
+- **Out of Scope** — plain bullets for exclusions the user named. If they named none, leave this section exactly as the template wrote it.
 
-Keep the user's title. Fix incomplete sentences and typos while updating.
+Do not number requirements or acceptance criteria. Do not use "The system shall" or Given/when/then.
+
+Fix incomplete sentences and typos while updating.
 
 Fold in matching `AGENTS.md` / codebase conventions. If the spec would contradict them, ask before choosing a side.
 
-Match the specificity of `specs/001-component-structure/spec.md` (files, APIs, behaviour, acceptance criteria) — not that file's heading layout. Record unchangeable files, libraries, and APIs under **Constraints**.
+Match the specificity of `specs/001-component-structure/spec.md` (files, APIs, behaviour, acceptance criteria) — not that file's heading layout. Record unchangeable files, libraries, and APIs under **Requirements**.
 
-Keep the spec concise. Prefer bullets over prose. Do not add rationale, alternatives considered, or implementation steps unless the user asked for them.
+Keep the spec concise. Prefer bullets over prose except in **Goal**. Do not add rationale, alternatives considered, or implementation steps unless the user asked for them.

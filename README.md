@@ -1,16 +1,16 @@
 # Spec-driven development skills
 
-Agent skills that take one feature from a draft specification to implementation. The specification states what the system shall do. A later plan states how to build it. Implementation follows that plan.
+Agent skills that take one feature from a draft specification to implementation. The specification states what the feature does. A later plan states how to build it. Implementation follows that plan.
 
-Spec format and intended to be aligned with a simplified version of the specification against the requirement-quality rules in [ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html). They do not implement the standard’s full requirements-engineering life cycle.
+A spec has four sections: **Goal**, **Requirements**, **Acceptance Criteria**, and **Out of Scope**. Requirements, acceptance criteria, and out-of-scope items are plain bullets. The spec has no title and no requirement ids.
 
-## Overview of standards and methodology
+## Overview
 
 ### Spec-driven development
 
 [Spec-driven development](https://arxiv.org/html/2602.00180v1) treats the specification as the source of intent. Code is written or checked against that specification. Each phase produces an artifact that constrains the next, and a person reviews the artifact before the next phase starts.
 
-1. **Specify.** What should the software do? Behaviour, requirements, and acceptance criteria, without prescribing the implementation.
+1. **Specify.** What should the feature do? Goal, requirements, acceptance criteria, and what is out of scope.
 2. **Plan.** How should it be built? Architecture, interfaces, and technical constraints.
 3. **Implement.** Build it in small tasks, against the specification and the plan.
 4. **Validate.** Check that the result meets the specification.
@@ -21,39 +21,23 @@ Teams use three levels of rigor:
 - **Spec-anchored.** Keep the specification in step with the code for the life of the system.
 - **Spec-as-source.** People edit the specification, and code is regenerated from it.
 
-This repository is spec-first. The specification is written and reviewed before `plan.md`, `task.md`, or code. The skills do not update the specification after implementation, and they do not treat it as generated source.
-
-### ISO/IEC/IEEE 29148
-
-[ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html), *Systems and software engineering — Life cycle processes — Requirements engineering* (second edition, 2018-11, confirmed 2024), covers requirements processes and products through the life cycle. It describes well-formed textual requirements, guides the requirements-related processes in ISO/IEC/IEEE 15288 and ISO/IEC/IEEE 12207, and specifies the information items those processes produce and what those items contain.
-
-**spec-grill-me** applies three parts of clause 5, using the checklist in **spec-review**, and writes `review.md` only when they pass:
-
-- **5.2.5, individual requirements.** Necessary, appropriate, unambiguous, complete, singular, feasible, verifiable, correct, and conforming.
-- **5.2.6, a set of requirements.** Complete, consistent, feasible, comprehensible, and able to be validated.
-- **5.2.7, language.** `shall` for a mandatory requirement on the system, `should` for a non-mandatory goal, `may` for permission, and `will` for a fact about another party.
-
-`spec.md` records one feature: goal, requirements, behaviour, constraints, and acceptance criteria. 
+This repository is spec-first. The specification is written and clarified before `plan.md`, `task.md`, or code. The skills do not update the specification after implementation, and they do not treat it as generated source.
 
 ## Skills
 
-Each skill sets `disable-model-invocation: true`. The agent loads a skill when you say its name or @-mention it. Run **spec-init**, **spec-grill-me**, **spec-plan**, and **spec-execute** in that order on one feature. **spec-grill-me** includes the **spec-review** check and writes a passing `review.md`, so you do not call **spec-review** as its own step.
+Each skill sets `disable-model-invocation: true`. The agent loads a skill when you say its name or @-mention it. Run **spec-init**, **spec-grill-me**, **spec-plan**, and **spec-execute** in that order on one feature.
 
 ### spec-init
 
-Creates `specs/<NNN>-<slug>/spec.md` from [the template](spec-init/template.md). `<NNN>` is the next three-digit prefix under `specs/` (`001` if none exist). It does not fill gaps. The slug is short kebab-case. The file keeps the template headings. Only facts you already stated replace placeholders. Constraints and Open questions are included only when you already gave content for them. It does not grill, plan, or implement. Next step: **spec-grill-me**.
+Creates `specs/<NNN>-<slug>/spec.md` from [the template](spec-init/template.md). `<NNN>` is the next three-digit prefix under `specs/` (`001` if none exist). It does not fill gaps. The slug is short kebab-case. The file keeps the template headings and does not add a title. Only facts you already stated replace placeholders. It does not grill, plan, or implement. Next step: **spec-grill-me**.
 
 ### spec-grill-me
 
-Turns the draft into a specification an implementer can follow. It reads the spec and the project’s conventions, then asks 3–6 questions per round about scope, files, API, UX, constraints, or acceptance. After each round it updates `spec.md` in place. Requirements use **R1**, **R2**, … as “The system shall …” or “The system should …”. Acceptance criteria use **AC1**, **AC2**, … as `**AC1 (verifies R1):**` Given/when/then. It then applies the **spec-review** rules and fixes anything that does not need a new product decision. It stops when Goal, Requirements, Behaviour, and Acceptance criteria are specific enough to implement, Open questions is omitted, and that review would pass, or when you say stop. On a clean review it writes `review.md` with `Result: Pass`. Next step: **spec-plan**. If you stop early, it does not write a Pass review.
-
-### spec-review
-
-Reviews `spec.md` against the same clauses and trace rules, and writes `review.md` beside the spec. `Result` is `Pass` or `Findings open`. Open findings are **F1**, **F2**, …, each naming the requirement (or the set), the failed characteristic, and the fix. A template prompt or an Open questions section still present cannot pass. You do not call this after **spec-grill-me**; that skill already writes a passing `review.md`. Use **spec-review** when you want an independent check. If findings are open, resolve them with **spec-grill-me**. On pass, next step: **spec-plan**.
+Turns the draft into a specification an implementer can follow. It reads the spec and the project’s conventions, then asks 3–6 questions per round about scope, files, API, UX, constraints, or acceptance. After each round it updates `spec.md` in place. Requirements, acceptance criteria, and out-of-scope items are plain bullets. It stops when Goal, Requirements, and Acceptance Criteria are specific enough to implement, or when you say stop. A placeholder Out of Scope section does not block that. It does not write a review. Next step: **spec-plan**.
 
 ### spec-plan
 
-Writes `plan.md` and `task.md` in the same folder. It stops, and writes neither file, when Goal, Requirements, Behaviour, or Acceptance criteria are still a template or too vague to implement, when Open questions is still present, or when `review.md` is missing, is not `Pass`, or is older than `spec.md`. It asks only implementation questions: files, APIs, types, order, and how. `plan.md` covers technical context, target structure, implementation detail, order, and out of scope. `task.md` is grouped unchecked tasks, including a Verify section. It does not edit the spec or implement it.
+Writes `plan.md` and `task.md` in the same folder. It stops, and writes neither file, when Goal, Requirements, or Acceptance Criteria are still a template or too vague to implement. It asks only implementation questions: files, APIs, types, order, and how. `plan.md` covers technical context, target structure, implementation detail, order, and out of scope. `task.md` is grouped unchecked tasks, including a Verify section. It does not edit the spec or implement it.
 
 ### spec-execute
 
@@ -75,4 +59,4 @@ For every project:
 npx skills add danpaul/agent_skills_sdd -g
 ```
 
-In that project’s agent chat, name the skill or @-mention it. For a new feature, start with **spec-init**. For an existing spec, point **spec-grill-me** and **spec-plan** at `specs/<NNN>-<slug>/spec.md`. Point **spec-execute** at that folder’s `task.md`. Point **spec-review** at the same `spec.md` only when you want a separate check. If the topic or the spec path is unclear, the skill asks before it writes anything.
+In that project’s agent chat, name the skill or @-mention it. For a new feature, start with **spec-init**. For an existing spec, point **spec-grill-me** and **spec-plan** at `specs/<NNN>-<slug>/spec.md`. Point **spec-execute** at that folder’s `task.md`. If the topic or the spec path is unclear, the skill asks before it writes anything.

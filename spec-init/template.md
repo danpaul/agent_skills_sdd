@@ -1,27 +1,15 @@
-# [Feature name]
-
 ## Goal
 
-What problem does this solve, and for whom?
+What should this feature accomplish?
 
 ## Requirements
 
-- **R1:** The system shall ...
-- **R2:** The system shall ...
+- ...
 
-## Behaviour
+## Acceptance Criteria
 
-Describe important workflows, edge cases, and error handling.
+- ...
 
-## Constraints
+## Out of Scope
 
-Technical, security, accessibility, or compatibility constraints. Omit if none.
-
-## Acceptance criteria
-
-- **AC1:** Given ..., when ..., then ...
-- **AC2:** Given ..., when ..., then ...
-
-## Open questions
-
-Unresolved decisions that need clarification. Omit if none.
+- ...

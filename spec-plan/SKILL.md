@@ -22,10 +22,11 @@ Keep the plan and tasks concise without losing essential details.
 
 1. Identify the spec (`@` mention, path, or `specs/<id>/spec.md`). If none is clear, ask which spec to plan.
 2. Read the spec, `AGENTS.md`, and the code/conventions it depends on.
-3. If **Goal**, **Requirements**, **Behaviour**, or **Acceptance criteria** are still the template prompt, a placeholder bullet, or too vague to implement without product guessing, stop. If **Open questions** is still present, stop. Tell the user to run **spec-grill-me** first. Do not write `plan.md` or `task.md`.
-4. Read `review.md` in that folder. If it is missing, `Result` is not `Pass`, or `spec.md` is newer than `review.md`, stop. Tell the user to run **spec-review**. Do not write `plan.md` or `task.md`.
-5. If `plan.md` or `task.md` already exists in that folder, ask before overwriting.
-6. Split remaining gaps into: already decided by the spec/repo, vs implementation choices that would force guessing.
+3. If **Goal**, **Requirements**, or **Acceptance Criteria** are still the template prompt, a placeholder bullet, or too vague to implement without product guessing, stop. Tell the user to run **spec-grill-me** first. Do not write `plan.md` or `task.md`.
+4. If `plan.md` or `task.md` already exists in that folder, ask before overwriting.
+5. Split remaining gaps into: already decided by the spec/repo, vs implementation choices that would force guessing.
+
+A still-placeholder **Out of Scope** section is not a set of real exclusions. Do not copy its placeholder into the plan.
 
 ## Question rounds
 
@@ -54,7 +55,7 @@ Match `specs/001-component-structure/plan.md` (specificity and heading style):
 - **Target structure** — files to add/change/delete
 - Implementation details — enough "how" to build (types, class maps, export shape, exact paths). Use short code sketches when they pin a choice.
 - **Implementation order** — numbered steps
-- **Out of scope** — work the spec does not require (from **Goal**, **Requirements**, and **Behaviour**), plus anything implied by the repo
+- **Out of scope** — work the spec does not require, including a filled **Out of Scope** section, plus anything implied by the repo
 
 Prefer bullets over prose. Do not add rationale or alternatives unless the user asked.
 
