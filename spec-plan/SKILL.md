@@ -48,7 +48,7 @@ Stop when both files are specific enough to implement without guessing, or when 
 
 ## Writing plan.md
 
-Match `specs/001-component-structure/plan.md` (specificity and heading style):
+Match `example-plan.md` in the same directory as this skill (specificity and heading style):
 
 - Title, link to `./spec.md`, one-line summary of what will be done
 - **Technical context** — stack, existing files, constraints (facts)
@@ -61,7 +61,7 @@ Prefer bullets over prose. Do not add rationale or alternatives unless the user 
 
 ## Writing task.md
 
-Always write `task.md` in the same folder. Match `specs/001-component-structure/task.md`:
+Always write `task.md` in the same folder. Match `example-task.md` in the same directory as this skill:
 
 - Source links: `./plan.md` and `./spec.md`
 - Grouped checkbox sections (feature areas, then a **Verify** section)

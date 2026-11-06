@@ -44,7 +44,7 @@ Stop when **Goal**, **Requirements**, and **Acceptance Criteria** are specific e
 
 ## Writing the spec
 
-Keep only these headings. Do not add or rename them. Drop any other heading, including a title.
+Keep only these H2 headings. Do not add or rename them. Drop any other heading, including a title. Under **Requirements** only, H3 subheadings may group related bullets.
 
 - **Goal** — a short statement of what the feature accomplishes. Replace the template prompt.
 - **Requirements** — plain bullets. These may name libraries, files, and other interfaces the product cannot change. Replace every placeholder bullet.
@@ -57,6 +57,6 @@ Fix incomplete sentences and typos while updating.
 
 Fold in matching `AGENTS.md` / codebase conventions. If the spec would contradict them, ask before choosing a side.
 
-Match the specificity of `specs/001-component-structure/spec.md` (files, APIs, behaviour, acceptance criteria) — not that file's heading layout. Record unchangeable files, libraries, and APIs under **Requirements**.
+Match `example-spec.md` in the same directory as this skill (specificity and heading layout: files, APIs, behaviour, acceptance criteria). Record unchangeable files, libraries, and APIs under **Requirements**.
 
 Keep the spec concise. Prefer bullets over prose except in **Goal**. Do not add rationale, alternatives considered, or implementation steps unless the user asked for them.
